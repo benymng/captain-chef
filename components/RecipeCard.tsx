@@ -1,26 +1,12 @@
 import Link from 'next/link';
 import { RecipeProps } from '../types';
 
-const RecipeCard = ({ id, name, ingredients, tags }: RecipeProps) => {
+const RecipeCard = ({ id, title, image }: RecipeProps) => {
   return (
     <Link href={`/recipes/${id}`}>
       <div>
-        <div>name: {name}</div>
-        <div>
-          ingredients
-          <ul>
-            {ingredients.map((i) => (
-              <li>{i}</li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          tags
-          <ul>
-            {tags.includes('vegan') && <li>leaf</li>}
-            {tags.includes('vegetarian') && <li>thing</li>}
-          </ul>
-        </div>
+        <img src={image} />
+        {title}
       </div>
     </Link>
   );

@@ -1,19 +1,29 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import RecipeCard from '../components/RecipeCard';
 import styles from '../styles/Home.module.css';
 import SearchBar from '../components/SearchBar';
 import CategoryBoxes from '../components/CategoryBoxes';
 import RecommendedForYou from '../components/RecommendedForYou';
 import Logo from '../public/Logo.svg';
 import Image from 'next/image';
+import { SearchResults } from '../types';
+import { spoonacular } from '../config';
 
-const Home: NextPage = () => {
+import { sampleSearchResults } from '../sample/searchResults';
+
+interface Props {
+  searchResults: SearchResults;
+}
+
+const Home: NextPage<Props> = ({ searchResults }: Props) => {
   const router = useRouter();
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const query = router.query.q || '';
+  const [searchQuery, setSearchQuery] = useState(query);
 
   const search = () => {
     router.push(`/recipes?q=${searchQuery}`);
@@ -58,14 +68,33 @@ const Home: NextPage = () => {
           value={searchQuery}
           setValue={setSearchQuery}
         />
-        <Link href={`/recipes?q=${searchQuery}`}>
-          <button onClick={() => router.push(`/recipes?q=${searchQuery}`)}>
+        <Link href={`/?q=${searchQuery}`}>
+          <button onClick={() => router.push(`/?q=${searchQuery}`)}>
             search
           </button>
         </Link>
+        {JSON.stringify(searchResults)}
+        {searchResults?.results.map((r) => (
+          <RecipeCard {...r} key={r.id} />
+        ))}
       </main>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  // // Search for recipes
+  // const searchQuery = query.q;
+  // const number = 1;
+
+  // const res = await fetch(
+  // `https://api.spoonacular.com/recipes/complexSearch?apiKey=${spoonacular.apiKey}&query=${searchQuery}&addRecipeInformation=true&number=${number}`
+  // );
+  // const searchResults = await res.json();
+
+  const searchResults = sampleSearchResults;
+
+  return { props: { searchResults } };
 };
 
 export default Home;
