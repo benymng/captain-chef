@@ -8,7 +8,7 @@ const sampleResults: RecipeProps[] = [
   {
     id: '1234',
     name: 'curry',
-    ingredients: ['chicken', 'curry'],
+    ingredients: ['chickens', 'curry'],
     tags: ['vegan'],
   },
   {
