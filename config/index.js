@@ -13,4 +13,8 @@ const spoonacular = {
   apiKey: process.env.SPOONACULAR_API_KEY,
 };
 
-export { env, spoonacular };
+const clarifai = {
+  apiKey: process.env.CLARIFAI_API_KEY,
+};
+
+export { env, spoonacular, clarifai };

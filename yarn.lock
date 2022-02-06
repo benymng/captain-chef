@@ -621,14 +621,15 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
-electron-to-chromium@^1.4.17:
-  version "1.4.65"
-  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.65.tgz"
-  integrity sha512-0/d8Skk8sW3FxXP0Dd6MnBlrwx7Qo9cqQec3BlIAlvKnrmS3pHsIbaroEi+nd0kZkGpQ6apMEre7xndzjlEnLw==
 dotenv@^16.0.0:
   version "16.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.0.tgz#c619001253be89ebb638d027b609c75c26e47411"
   integrity sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q==
+
+electron-to-chromium@^1.4.17:
+  version "1.4.65"
+  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.65.tgz"
+  integrity sha512-0/d8Skk8sW3FxXP0Dd6MnBlrwx7Qo9cqQec3BlIAlvKnrmS3pHsIbaroEi+nd0kZkGpQ6apMEre7xndzjlEnLw==
 
 emoji-regex@^9.2.2:
   version "9.2.2"
@@ -1701,6 +1702,11 @@ react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-webcam@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/react-webcam/-/react-webcam-6.0.1.tgz#6f81f9be7b208a351a42af3288ef1149bd1eec36"
+  integrity sha512-QUacokAV3lk2XeIuRWky+ZGFv5vcwrxN634IXdntAt0eRKTl4G/dujbDN/KGizf1i9r/KB6fokqNkOnQ0bbw6g==
 
 react@17.0.2:
   version "17.0.2"
