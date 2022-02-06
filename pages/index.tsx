@@ -137,7 +137,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const ingredients = query.i;
 
   if (!searchQuery && !diet && !ingredients) {
-    return { props: { sampleSearchResults } };
+    return { props: { searchResults: sampleSearchResults } };
   }
 
   let searchResults;
