@@ -80,7 +80,13 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
         />
 
         <Link href="/scan">
-          <a>scan</a>
+          <div className="mb-5 w-full flex">
+            <div className="m-auto">
+              <button className="bg-accent-color hover:bg-secondary-color text-font-color font-bold py-2 px-4 rounded hover:shadow-accent-color hover:shadow-2xl text-lg">
+                Scan Ingredients
+              </button>
+            </div>
+          </div>
         </Link>
 
         <div className="grid grid-cols-3 gap-3">

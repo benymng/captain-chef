@@ -51,7 +51,7 @@ const Scan: NextPage = () => {
     <div>
       {captured && snapshot && <img src={snapshot} alt="snapshot" />}
       {!captured && (
-        <div className="h-1/2 w-1/2">
+        <div className="flex mx-auto w-4/5 lg:w-1/2 my-10">
           <Webcam
             audio={false}
             ref={webcamRef}
@@ -61,25 +61,27 @@ const Scan: NextPage = () => {
           />
         </div>
       )}
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={capture}
-      >
-        capture
-      </button>
-      <button
-        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-        onClick={redo}
-      >
-        redo
-      </button>
-      <button
-        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-        onClick={confirm}
-      >
-        confirm
-      </button>
-      <div>{JSON.stringify(results)}</div>
+      <div className="mt-10 flex justify-center items-center h-screenflex mx-auto">
+        <button
+          className="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+          onClick={capture}
+        >
+          capture
+        </button>
+        <button
+          className="bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2"
+          onClick={redo}
+        >
+          redo
+        </button>
+        <button
+          className="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
+          onClick={confirm}
+        >
+          confirm
+        </button>
+        <div>{JSON.stringify(results)}</div>
+      </div>
     </div>
   );
 };
