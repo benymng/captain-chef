@@ -245,12 +245,12 @@ const CookPage: NextPage<Props> = ({ recipeDetails }: Props) => {
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   // Search for recipes
   const id = query.id;
-  const recipeDetails = sampleRecipeDetails;
+  // const recipeDetails = sampleRecipeDetails;
 
-  // const res = await fetch(
-  //   `https://api.spoonacular.com/recipes/${id}/information?apiKey=${spoonacular.apiKey}`
-  // );
-  // const recipeDetails = await res.json();
+  const res = await fetch(
+    `https://api.spoonacular.com/recipes/${id}/information?apiKey=${spoonacular.apiKey}`
+  );
+  const recipeDetails = await res.json();
 
   const instructions = recipeDetails.analyzedInstructions.map((i) => {
     return i.steps.map((s) => s.step.replaceAll(/\.(?=[^ \n])/g, '. '));

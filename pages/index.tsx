@@ -138,19 +138,19 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   let searchResults;
 
-  // if (ingredients) {
-  //   const res = await fetch(
-  //     `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${spoonacular.apiKey}&ingredients=${ingredients}&addRecipeInformation=true&number=${number}&diet=${diet}`
-  //   );
-  //   searchResults = await res.json();
-  // } else {
-  //   const res = await fetch(
-  //     `https://api.spoonacular.com/recipes/complexSearch?apiKey=${spoonacular.apiKey}&query=${searchQuery}&addRecipeInformation=true&number=${number}&diet=${diet}`
-  //   );
-  //   searchResults = await res.json();
-  // }
+  if (ingredients) {
+    const res = await fetch(
+      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${spoonacular.apiKey}&ingredients=${ingredients}&addRecipeInformation=true&number=${number}&diet=${diet}`
+    );
+    searchResults = await res.json();
+  } else {
+    const res = await fetch(
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${spoonacular.apiKey}&query=${searchQuery}&addRecipeInformation=true&number=${number}&diet=${diet}`
+    );
+    searchResults = await res.json();
+  }
 
-  searchResults = sampleSearchResults;
+  // searchResults = sampleSearchResults;
 
   return { props: { searchResults } };
 };
