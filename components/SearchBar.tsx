@@ -17,6 +17,8 @@ const SearchBar = ({ value, setValue, search }: Props) => {
         placeholder="Search"
         value={value}
         onChange={(x) => setValue(x.target.value)}
+        autoComplete="off"
+        onKeyPress={(e) => e.key === 'Enter' && search()}
       />
       <button
         type="submit"
