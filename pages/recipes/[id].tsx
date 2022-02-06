@@ -12,6 +12,7 @@ import { spoonacular } from '../../config';
 import CookingInfo from '../../components/CookingInfo';
 import { sampleRecipeDetails } from '../../sample/recipeDetails';
 import Header from '../../components/Header';
+import Link from 'next/link';
 
 interface Props {
   recipeDetails: RecipeProps;
@@ -42,9 +43,11 @@ const RecipePage: NextPage<Props> = ({ recipeDetails }: Props) => {
       <div className="flex">
         <div>
           <img className="mx-auto my-5" src={image} />
-          <button className="flex mx-auto bg-accent-color hover:bg-secondary-color text-font-color font-bold py-2 px-4 rounded mt-10 hover:shadow-accent-color hover:shadow-2xl">
-            Cook
-          </button>
+          <Link href={`/cook/${id}`}>
+            <button className="flex mx-auto bg-accent-color hover:bg-secondary-color text-font-color font-bold py-2 px-4 rounded mt-10 hover:shadow-accent-color hover:shadow-2xl">
+              Cook
+            </button>
+          </Link>
           <h1 className="flex justify-center text-2xl text-font-color pb-4 pt-4 font-extrabold">
             {/* {recipeDetails} */}
           </h1>
