@@ -23,6 +23,7 @@ import { sampleRecipeDetails } from '../../sample/recipeDetails';
 import { RecipeProps } from '../../types';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { spoonacular } from '../../config';
 
 interface Props {
   recipeDetails: RecipeProps;
@@ -256,7 +257,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const recipeDetails = await res.json();
 
   const instructions = recipeDetails.analyzedInstructions.map((i) => {
-    return i.steps.map((s) => s.step.replaceAll(/\.(?=[^ \n])/g, '. '));
+    return i.steps.map((s) => s.step.replace(/\.(?=[^ \n])/g, '. '));
   })[0];
 
   const ingredients = recipeDetails.extendedIngredients.map(

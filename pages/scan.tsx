@@ -41,8 +41,8 @@ const Scan: NextPage = () => {
     });
     const x = await res.json();
 
-    if (x.ingredients && x.ingrediens.length > 0) {
-      const ingredientsString = x.ingredients.join('+');
+    if (x.ingredients && x.ingredients.length > 0) {
+      const ingredientsString = x.ingredients.slice(0, 2).join('+');
       router.push('/?i=' + ingredientsString);
     }
   };
