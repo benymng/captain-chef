@@ -8,6 +8,8 @@ import {
 } from 'react-icons/md';
 
 import Webcam from 'react-webcam';
+
+// @ts-ignore
 import fp from 'fingerpose';
 import { Left, Right } from '../../lib/gestures';
 import { load } from '@tensorflow-models/handpose';
