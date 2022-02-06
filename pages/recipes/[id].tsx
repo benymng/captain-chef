@@ -9,8 +9,15 @@ import styles from '../../styles/Home.module.css';
 import Image from 'next/image';
 import { RecipeProps } from '../../types';
 import { spoonacular } from '../../config';
+import CookingInfo from '../../components/CookingInfo';
+import { sampleRecipeDetails } from '../../sample/recipeDetails';
 
-const RecipePage: NextPage<RecipeProps> = ({ title }: RecipeProps) => {
+interface Props {
+  recipeDetails: RecipeProps;
+}
+
+const RecipePage: NextPage<Props> = ({ recipeDetails }: Props) => {
+  const { title, image, instructions } = recipeDetails;
   const router = useRouter();
   const id = router.query.id;
   const query = (router.query.q as string) || '';
@@ -18,7 +25,7 @@ const RecipePage: NextPage<RecipeProps> = ({ title }: RecipeProps) => {
   const search = () => {
     router.push(`/recipes?q=${searchQuery}`);
   };
-
+  console.log(recipeDetails);
   return (
     <div className={styles.container}>
       <SearchBar
@@ -33,8 +40,9 @@ const RecipePage: NextPage<RecipeProps> = ({ title }: RecipeProps) => {
         <div className="m-auto">
           <img src="https://spoonacular.com/recipeImages/659015-636x393.jpg" />
           <h1 className="flex justify-center text-2xl text-font-color pb-4 pt-4 font-extrabold">
-            Chicken and Cauliflower Salad
+            {recipeDetails}
           </h1>
+          {/* <CookingInfo servings={servings} readyInMinutes={readyInMinutes} /> */}
           <h2 className="flex justify-center text-xl text-font-color pb-5 font-bold">
             Ingredients
           </h2>
@@ -47,9 +55,9 @@ const RecipePage: NextPage<RecipeProps> = ({ title }: RecipeProps) => {
             Directions
           </h2>
           <div className="justify-center grid grid-cols-1">
-            <RecipePreview info="Carrot - Wash the vegetables for 30 seconds" />
-            <RecipePreview info="Carrot - Wash the vegetables for 30 seconds" />
-            <RecipePreview info="Carrot - Wash the vegetables for 30 seconds" />
+            {/* {instructions.map((r) => (
+              <CookingInfo
+            ))} */}
           </div>
         </div>
       </div>
@@ -60,11 +68,12 @@ const RecipePage: NextPage<RecipeProps> = ({ title }: RecipeProps) => {
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   // Search for recipes
   const id = query.id;
+  const recipeDetails = sampleRecipeDetails;
 
-  const res = await fetch(
-    `https://api.spoonacular.com/recipes/${id}/information?apiKey=${spoonacular.apiKey}`
-  );
-  const recipeDetails = await res.json();
+  // const res = await fetch(
+  //   `https://api.spoonacular.com/recipes/${id}/information?apiKey=${spoonacular.apiKey}`
+  // );
+  // const recipeDetails = await res.json();
 
   return { props: { recipeDetails } };
 };
