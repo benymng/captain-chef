@@ -6,11 +6,15 @@ import { useState } from 'react';
 import RecipeCard from '../components/RecipeCard';
 import styles from '../styles/Home.module.css';
 import SearchBar from '../components/SearchBar';
-import CategoryBoxes from '../components/CategoryBoxes';
+import CategoryBoxes from '../components/CategoryBox';
 import Logo from '../public/Logo.svg';
 import Image from 'next/image';
-import { SearchResults } from '../types';
+import { SearchResults, Tag } from '../types';
 import { spoonacular } from '../config';
+import CategoryBox from '../components/CategoryBox';
+import { RiPlantFill } from 'react-icons/ri';
+import { GiFruitBowl } from 'react-icons/gi';
+import { BsFillCloudHailFill } from 'react-icons/bs';
 
 import { sampleSearchResults } from '../sample/searchResults';
 
@@ -18,68 +22,95 @@ interface Props {
   searchResults: SearchResults;
 }
 
+interface Categories {
+  vegan: boolean;
+  vegetarian: boolean;
+  dairyFree: boolean;
+}
+
 const Home: NextPage<Props> = ({ searchResults }: Props) => {
   const router = useRouter();
 
   const query = (router.query.q as string) || '';
-  const [searchQuery, setSearchQuery] = useState(query);
+  const [searchQuery, setSearchQuery] = useState<string>(query);
+  const [categories, setCategories] = useState<Categories>({
+    vegan: false,
+    vegetarian: false,
+    dairyFree: false,
+  });
 
   const search = () => {
-    router.push(`/recipes?q=${searchQuery}`);
+    router.push(`/?q=${searchQuery}`);
+  };
+
+  const toggleCategory = (c: Tag) => {
+    const newCategories = {
+      vegan: false,
+      vegetarian: false,
+      dairyFree: false,
+    };
+    newCategories[c] = !categories[c];
+
+    setCategories(newCategories);
+    search();
   };
 
   return (
-    <div className={styles.container}>
-      <div className="w-full">
-        <h1 className="text-center text-4xl text-font-color font-sans font-bold">
-          Captain Chef
-        </h1>
-      </div>
-      {/* <div className="flex mx-auto">
-        <Image className="text-font-color h-10" src={Logo} />
-      </div> */}
-      <SearchBar
-        search={search}
-        value={searchQuery}
-        setValue={setSearchQuery}
-      />
-      <CategoryBoxes search={search} />
-      <br></br>
-      <p className="pb-3 font-sans font-bold text-font-color text-3xl">
-        Recommended for you:
-      </p>
-      <div className="grid-cols-1">
-        {/* <RecommendedRecipe
-          title="Green Bean-and-Tomato Salad with Tarragon Dressing"
-          ImgLink="https://images.unsplash.com/photo-1497493292307-31c376b6e479?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80"
-        /> */}
-        {searchResults?.results.map((r) => (
-          <RecipeCard {...r} key={r.id} />
-        ))}
-      </div>
-      <br></br>
+    <div>
       <Head>
         <title>Captain Chef</title>
         <meta name="description" content="Recipe app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(x) => setSearchQuery(x.target.value)}
-        />
+      <main className="p-5">
+        <div className="w-full py-5">
+          <h1 className="text-center text-4xl text-font-color font-sans font-bold">
+            Captain Chef
+          </h1>
+        </div>
+
         <SearchBar
           search={search}
           value={searchQuery}
           setValue={setSearchQuery}
         />
-        <Link href={`/?q=${searchQuery}`}>
-          <button onClick={() => router.push(`/?q=${searchQuery}`)}>
-            search
-          </button>
-        </Link>
+
+        <div className="grid grid-cols-3 gap-3">
+          <CategoryBox
+            text="Vegetarian"
+            update={() => toggleCategory('vegetarian')}
+            active={categories.vegetarian}
+          >
+            <RiPlantFill />
+          </CategoryBox>
+          <CategoryBox
+            text="Vegan"
+            update={() => toggleCategory('vegan')}
+            active={categories.vegan}
+          >
+            <GiFruitBowl />
+          </CategoryBox>
+          <CategoryBox
+            text="Dairy Free"
+            update={() => toggleCategory('dairyFree')}
+            active={categories.dairyFree}
+          >
+            <BsFillCloudHailFill />
+          </CategoryBox>
+        </div>
+
+        <div className="mt-9">
+          <p className="pb-3 font-sans font-bold text-font-color text-2xl italic">
+            Recommended for you
+          </p>
+        </div>
+        <div className="grid-cols-1">
+          {searchResults?.results.map((r) => (
+            <RecipeCard {...r} key={r.id} />
+          ))}
+        </div>
+        <br></br>
       </main>
     </div>
   );
