@@ -9,7 +9,7 @@ interface Props {
 
 const SearchBar = ({ value, setValue, search }: Props) => {
   return (
-    <div className="pb-8 pt-2 relative mx-auto text-gray-600">
+    <div className="pb-8 pt-8 relative mx-auto text-gray-600">
       <input
         className="border-2 border-font-color bg-font-color h-10 w-full px-5 pr-16 rounded-lg text-sm focus:outline-none"
         type="search"
@@ -22,7 +22,7 @@ const SearchBar = ({ value, setValue, search }: Props) => {
       />
       <button
         type="submit"
-        className="absolute right-0 top-0 mt-5 mr-4"
+        className="absolute right-0 top-6 mt-5 mr-4"
         onClick={() => search()}
       >
         <AiOutlineSearch />
