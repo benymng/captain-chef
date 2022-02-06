@@ -15,6 +15,7 @@ import CategoryBox from '../components/CategoryBox';
 import { RiPlantFill } from 'react-icons/ri';
 import { GiFruitBowl } from 'react-icons/gi';
 import { BsFillCloudHailFill } from 'react-icons/bs';
+import Header from '../components/Header';
 
 import { sampleSearchResults } from '../sample/searchResults2';
 
@@ -71,12 +72,7 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
       </Head>
 
       <main className="py-5 lg:px-24 px-8">
-        <div className="w-full py-5">
-          <h1 className="text-center text-4xl text-font-color font-sans font-bold">
-            Captain Chef
-          </h1>
-        </div>
-
+        <Header />
         <SearchBar
           search={search}
           value={searchQuery}

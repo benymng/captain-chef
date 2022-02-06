@@ -35,7 +35,7 @@ const RecipePage: NextPage<Props> = ({ recipeDetails }: Props) => {
         value={searchQuery}
         setValue={setSearchQuery}
       /> */}
-      {/* <Header /> */}
+      <Header />
       {/* <div>Recipe ID: {id}</div> */}
       <BackButton />
       <HomeButton />
