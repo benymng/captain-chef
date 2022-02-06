@@ -7,7 +7,6 @@ import RecipeCard from '../components/RecipeCard';
 import styles from '../styles/Home.module.css';
 import SearchBar from '../components/SearchBar';
 import CategoryBoxes from '../components/CategoryBoxes';
-import RecommendedRecipe from '../components/RecommendedRecipe';
 import Logo from '../public/Logo.svg';
 import Image from 'next/image';
 import { SearchResults } from '../types';
@@ -22,7 +21,7 @@ interface Props {
 const Home: NextPage<Props> = ({ searchResults }: Props) => {
   const router = useRouter();
 
-  const query = router.query.q || '';
+  const query = (router.query.q as string) || '';
   const [searchQuery, setSearchQuery] = useState(query);
 
   const search = () => {
@@ -50,10 +49,13 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
         Recommended for you:
       </p>
       <div className="grid-cols-1">
-        <RecommendedRecipe
+        {/* <RecommendedRecipe
           title="Green Bean-and-Tomato Salad with Tarragon Dressing"
           ImgLink="https://images.unsplash.com/photo-1497493292307-31c376b6e479?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80"
-        />
+        /> */}
+        {searchResults?.results.map((r) => (
+          <RecipeCard {...r} key={r.id} />
+        ))}
       </div>
       <br></br>
       <Head>
@@ -78,10 +80,6 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
             search
           </button>
         </Link>
-        {JSON.stringify(searchResults)}
-        {searchResults?.results.map((r) => (
-          <RecipeCard {...r} key={r.id} />
-        ))}
       </main>
     </div>
   );
