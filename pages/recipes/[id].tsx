@@ -11,6 +11,7 @@ import { RecipeProps } from '../../types';
 import { spoonacular } from '../../config';
 import CookingInfo from '../../components/CookingInfo';
 import { sampleRecipeDetails } from '../../sample/recipeDetails';
+import Header from '../../components/Header';
 
 interface Props {
   recipeDetails: RecipeProps;
@@ -29,36 +30,46 @@ const RecipePage: NextPage<Props> = ({ recipeDetails }: Props) => {
   console.log(recipeDetails);
   return (
     <div className={styles.container}>
-      <SearchBar
+      {/* <SearchBar
         search={search}
         value={searchQuery}
         setValue={setSearchQuery}
-      />
+      /> */}
+      {/* <Header /> */}
       {/* <div>Recipe ID: {id}</div> */}
       <BackButton />
       <HomeButton />
       <div className="flex">
-        <div className="m-auto">
-          <img src="https://spoonacular.com/recipeImages/659015-636x393.jpg" />
+        <div>
+          <img className="mx-auto my-5" src={image} />
+          <button className="flex mx-auto bg-accent-color hover:bg-secondary-color text-font-color font-bold py-2 px-4 rounded mt-10 hover:shadow-accent-color hover:shadow-2xl">
+            Cook
+          </button>
           <h1 className="flex justify-center text-2xl text-font-color pb-4 pt-4 font-extrabold">
             {/* {recipeDetails} */}
           </h1>
           {/* <CookingInfo servings={servings} readyInMinutes={readyInMinutes} /> */}
-          <h2 className="flex justify-center text-xl text-font-color pb-5 font-bold">
-            Ingredients
-          </h2>
-          <div className="justify-center grid grid-cols-1">
-            <RecipePreview info="Carrot - 2 cups (chopped)" />
-            <RecipePreview info="Carrot - 2 cups (chopped)" />
-            <RecipePreview info="Carrot - 2 cups (chopped)" />
-          </div>
-          <h2 className="flex justify-center text-xl text-font-color pb-5 pt-10 font-bold">
-            Directions
-          </h2>
-          <div className="justify-center grid grid-cols-1">
-            {/* {instructions.map((instruction) => (
-              <CookingInfo instruction={instruction} />
-            ))} */}
+          <div className="lg:grid lg:grid-cols-2">
+            <div className="pr-5">
+              <h2 className="flex justify-center text-xl text-font-color pb-5 font-bold">
+                Ingredients
+              </h2>
+              <div className="justify-center grid grid-cols-1">
+                <RecipePreview info="Carrot - 2 cups (chopped)" />
+                <RecipePreview info="Carrot - 2 cups (chopped)" />
+                <RecipePreview info="Carrot - 2 cups (chopped)" />
+              </div>
+            </div>
+            <div className="pr-5">
+              <h2 className="flex justify-center text-xl text-font-color pt-10 lg:pt-0 pb-5 font-bold">
+                Directions
+              </h2>
+              <div className="grid grid-cols-1">
+                {instructions.map((instruction) => (
+                  <RecipePreview info={instruction} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -82,7 +93,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         ...recipeDetails,
         instructions: recipeDetails.analyzedInstructions.map((i) => {
           return i.steps.map((s) => s.step.replaceAll(/\.(?=[^ \n])/g, '. '));
-        }),
+        })[0],
       },
     },
   };
