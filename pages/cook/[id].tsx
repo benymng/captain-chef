@@ -257,7 +257,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const recipeDetails = await res.json();
 
   const instructions = recipeDetails.analyzedInstructions.map((i) => {
-    return i.steps.map((s) => s.step.replaceAll(/\.(?=[^ \n])/g, '. '));
+    return i.steps.map((s) => s.step.replace(/\.(?=[^ \n])/g, '. '));
   })[0];
 
   const ingredients = recipeDetails.extendedIngredients.map(
