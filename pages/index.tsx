@@ -111,7 +111,7 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
             Recommended for you
           </p>
         </div>
-        <div className="grid-cols-1">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
           {searchResults?.results.map((r) => (
             <RecipeCard {...r} key={r.id} />
           ))}
