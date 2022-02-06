@@ -28,7 +28,7 @@ const CategoryBox = ({ text, children, search }) => {
     <div>
       <div
         onClick={search}
-        className="flex h-16 box md:h-20 border-4 bg-secondary-color rounded-lg border-none hover:bg-accent-color hover:rounded-3xl transition-all duration-300 ease-linear cursor-pointer hover:shadow-accent-color shadow-2xl"
+        className="flex h-16 box md:h-20 border-4 bg-secondary-color rounded-lg border-none hover:bg-accent-color hover:rounded-3xl transition-all duration-300 ease-linear cursor-pointer hover:shadow-accent-color hover:shadow-2xl"
       >
         <div className="m-auto">
           {/* clones the react component and adds to it*/}
