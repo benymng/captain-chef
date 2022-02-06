@@ -1,9 +1,15 @@
 import React from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
-const SearchBar = ({ value, setValue, search }) => {
+interface Props {
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+  search: Function;
+}
+
+const SearchBar = ({ value, setValue, search }: Props) => {
   return (
-    <div class="pb-8 pt-2 relative mx-auto text-gray-600">
+    <div className="pb-8 pt-2 relative mx-auto text-gray-600">
       <input
         className="border-2 border-font-color bg-font-color h-10 w-full px-5 pr-16 rounded-lg text-sm focus:outline-none"
         type="search"
@@ -15,7 +21,7 @@ const SearchBar = ({ value, setValue, search }) => {
       <button
         type="submit"
         className="absolute right-0 top-0 mt-5 mr-4"
-        onClick={search}
+        onClick={() => search()}
       >
         <AiOutlineSearch />
       </button>
