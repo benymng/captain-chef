@@ -59,7 +59,7 @@ const RecipePage: NextPage<Props> = ({ recipeDetails }: Props) => {
                 Ingredients
               </h2>
               <div className="justify-center grid grid-cols-1">
-                {ingredients.map((i) => (
+                {ingredients?.map((i) => (
                   <RecipePreview info={i} />
                 ))}
               </div>
@@ -69,7 +69,7 @@ const RecipePage: NextPage<Props> = ({ recipeDetails }: Props) => {
                 Directions
               </h2>
               <div className="grid grid-cols-1">
-                {instructions.map((instruction) => (
+                {instructions?.map((instruction) => (
                   <RecipePreview info={instruction} />
                 ))}
               </div>
@@ -91,13 +91,15 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   );
   const recipeDetails = await res.json();
 
-  const instructions = recipeDetails.analyzedInstructions.map((i) => {
-    return i.steps.map((s) => s.step.replace(/\.(?=[^ \n])/g, '. '));
-  })[0];
+  const instructions =
+    recipeDetails?.analyzedInstructions?.map((i) => {
+      return i.steps.map((s) => s.step.replace(/\.(?=[^ \n])/g, '. '));
+    })[0] || null;
 
-  const ingredients = recipeDetails.extendedIngredients.map(
-    ({ name, amount, unit }) => `${name} – ${amount} ${unit}`
-  );
+  const ingredients =
+    recipeDetails?.extendedIngredients?.map(
+      ({ name, amount, unit }) => `${name} – ${amount} ${unit}`
+    ) || null;
 
   return {
     props: {
