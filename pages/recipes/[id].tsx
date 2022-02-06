@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import BackButton from '../../components/BackButton';
