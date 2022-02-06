@@ -34,7 +34,7 @@ const RecipeCard = ({ id, title, image }: RecipeProps) => {
               <Link href={`/recipes/${id}`}>
                 <a
                   href="#"
-                  className="bg-primary-color text-font-color px-5 py-3 font-semibold rounded"
+                  className="bg-primary-color hover:bg-accent-color text-font-color py-2 px-4 rounded hover:shadow-accent-color hover:shadow-2xl text-lg hover:rounded-2xl transition-all duration-300 ease-linear cursor-pointer"
                 >
                   Start Now
                 </a>
