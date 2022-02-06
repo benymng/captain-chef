@@ -13,6 +13,7 @@ export declare type RecipeProps = {
   dairyFree: boolean;
 
   instructions: string[];
+  ingredients: string[];
 };
 
 export declare type SearchResults = {

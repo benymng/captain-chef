@@ -15,6 +15,7 @@ import CategoryBox from '../components/CategoryBox';
 import { RiPlantFill } from 'react-icons/ri';
 import { GiFruitBowl } from 'react-icons/gi';
 import { BsFillCloudHailFill } from 'react-icons/bs';
+import Header from '../components/Header';
 
 import { sampleSearchResults } from '../sample/searchResults2';
 
@@ -71,17 +72,22 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
       </Head>
 
       <main className="py-5 lg:px-24 px-8">
-        <div className="w-full py-5">
-          <h1 className="text-center text-4xl text-font-color font-sans font-bold">
-            Captain Chef
-          </h1>
-        </div>
-
+        <Header />
         <SearchBar
           search={search}
           value={searchQuery}
           setValue={setSearchQuery}
         />
+
+        <Link href="/scan">
+          <div className="mb-5 w-full flex">
+            <div className="m-auto">
+              <button className="bg-accent-color hover:bg-secondary-color text-font-color font-bold py-2 px-4 rounded hover:shadow-accent-color hover:shadow-2xl text-lg hover:rounded-2xl transition-all duration-300 ease-linear cursor-pointer">
+                Scan Ingredients
+              </button>
+            </div>
+          </div>
+        </Link>
 
         <div className="grid grid-cols-3 gap-3">
           <CategoryBox
@@ -124,17 +130,27 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  // // Search for recipes
-  // const searchQuery = query.q;
-  // const diet = query.diet;
-  // const number = 6;
+  // Search for recipes
+  const number = 6;
+  const searchQuery = query.q;
+  const diet = query.diet;
+  const ingredients = query.i;
 
-  // const res = await fetch(
-  //   `https://api.spoonacular.com/recipes/complexSearch?apiKey=${spoonacular.apiKey}&query=${searchQuery}&addRecipeInformation=true&number=${number}&diet=${diet}`
-  // );
-  // const searchResults = await res.json();
+  let searchResults;
 
-  const searchResults = sampleSearchResults;
+  if (ingredients) {
+    const res = await fetch(
+      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${spoonacular.apiKey}&ingredients=${ingredients}&addRecipeInformation=true&number=${number}&diet=${diet}`
+    );
+    searchResults = await res.json();
+  } else {
+    const res = await fetch(
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${spoonacular.apiKey}&query=${searchQuery}&addRecipeInformation=true&number=${number}&diet=${diet}`
+    );
+    searchResults = await res.json();
+  }
+
+  // searchResults = sampleSearchResults;
 
   return { props: { searchResults } };
 };

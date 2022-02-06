@@ -12,7 +12,7 @@ const RecipeCard = ({ id, title, image }: RecipeProps) => {
   // );
   return (
     <div>
-      <div className="py-3 lg:py-4 lg:flex lg:justify-center h-full">
+      <div className="py-3 lg:py-4 h-full">
         <div className="bg-black rounded-xl lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-xl">
           <div className="lg:w-1/2">
             <div className="flex h-full">
@@ -34,7 +34,7 @@ const RecipeCard = ({ id, title, image }: RecipeProps) => {
               <Link href={`/recipes/${id}`}>
                 <a
                   href="#"
-                  className="bg-primary-color text-font-color px-5 py-3 font-semibold rounded"
+                  className="bg-primary-color hover:bg-accent-color text-font-color py-2 px-4 rounded hover:shadow-accent-color hover:shadow-2xl text-lg hover:rounded-2xl transition-all duration-300 ease-linear cursor-pointer"
                 >
                   Start Now
                 </a>
