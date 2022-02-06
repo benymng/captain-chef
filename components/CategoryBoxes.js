@@ -28,7 +28,7 @@ const CategoryBox = ({ text, children, search }) => {
     <div>
       <div
         onClick={search}
-        className="flex h-16 box md:h-20 border-4 bg-secondary-color rounded-lg border-none hover:bg-accent-color hover:rounded-3xl transition-all duration-300 ease-linear"
+        className="flex h-16 box md:h-20 border-4 bg-secondary-color rounded-lg border-none hover:bg-accent-color hover:rounded-3xl transition-all duration-300 ease-linear cursor-pointer hover:shadow-accent-color shadow-2xl"
       >
         <div className="m-auto">
           {/* clones the react component and adds to it*/}
@@ -37,7 +37,7 @@ const CategoryBox = ({ text, children, search }) => {
           })}
         </div>
       </div>
-      <p className="text-center font-sans font-bold text-xs md:text-base text-font-color">
+      <p className="mt-2 text-center font-sans font-bold text-xs md:text-base text-font-color">
         {text}
       </p>
     </div>
