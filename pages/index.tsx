@@ -79,6 +79,10 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
           setValue={setSearchQuery}
         />
 
+        <Link href="/scan">
+          <a>scan</a>
+        </Link>
+
         <div className="grid grid-cols-3 gap-3">
           <CategoryBox
             text="Vegetarian"
@@ -120,17 +124,27 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  // // Search for recipes
-  // const searchQuery = query.q;
-  // const diet = query.diet;
-  // const number = 6;
+  // Search for recipes
+  const number = 6;
+  const searchQuery = query.q;
+  const diet = query.diet;
+  const ingredients = query.i;
 
-  // const res = await fetch(
-  //   `https://api.spoonacular.com/recipes/complexSearch?apiKey=${spoonacular.apiKey}&query=${searchQuery}&addRecipeInformation=true&number=${number}&diet=${diet}`
-  // );
-  // const searchResults = await res.json();
+  let searchResults;
 
-  const searchResults = sampleSearchResults;
+  // if (ingredients) {
+  //   const res = await fetch(
+  //     `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${spoonacular.apiKey}&ingredients=${ingredients}&addRecipeInformation=true&number=${number}&diet=${diet}`
+  //   );
+  //   searchResults = await res.json();
+  // } else {
+  //   const res = await fetch(
+  //     `https://api.spoonacular.com/recipes/complexSearch?apiKey=${spoonacular.apiKey}&query=${searchQuery}&addRecipeInformation=true&number=${number}&diet=${diet}`
+  //   );
+  //   searchResults = await res.json();
+  // }
+
+  searchResults = sampleSearchResults;
 
   return { props: { searchResults } };
 };
