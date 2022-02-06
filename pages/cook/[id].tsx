@@ -23,6 +23,7 @@ import { sampleRecipeDetails } from '../../sample/recipeDetails';
 import { RecipeProps } from '../../types';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { spoonacular } from '../../config';
 
 interface Props {
   recipeDetails: RecipeProps;

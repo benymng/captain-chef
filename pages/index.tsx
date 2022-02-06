@@ -119,7 +119,7 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
           </p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2">
-          {searchResults?.results.map((r) => (
+          {searchResults?.results?.map((r) => (
             <RecipeCard {...r} key={r.id} />
           ))}
         </div>
