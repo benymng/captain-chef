@@ -18,7 +18,7 @@ interface Props {
 }
 
 const RecipePage: NextPage<Props> = ({ recipeDetails }: Props) => {
-  const { title, image, instructions } = recipeDetails;
+  const { title, image, instructions, ingredients } = recipeDetails;
 
   const router = useRouter();
   const id = router.query.id;
@@ -51,17 +51,17 @@ const RecipePage: NextPage<Props> = ({ recipeDetails }: Props) => {
           {/* <CookingInfo servings={servings} readyInMinutes={readyInMinutes} /> */}
           <div className="lg:grid lg:grid-cols-2">
             <div className="pr-5">
-              <h2 className="flex justify-center text-xl text-font-color pb-5 font-bold">
+              <h2 className="flex justify-center text-xl text-font-color pb-5 font-bold italic">
                 Ingredients
               </h2>
               <div className="justify-center grid grid-cols-1">
-                <RecipePreview info="Carrot - 2 cups (chopped)" />
-                <RecipePreview info="Carrot - 2 cups (chopped)" />
-                <RecipePreview info="Carrot - 2 cups (chopped)" />
+                {ingredients.map((i) => (
+                  <RecipePreview info={i} />
+                ))}
               </div>
             </div>
             <div className="pr-5">
-              <h2 className="flex justify-center text-xl text-font-color pt-10 lg:pt-0 pb-5 font-bold">
+              <h2 className="flex justify-center text-xl text-font-color pt-10 lg:pt-0 pb-5 font-bold italic">
                 Directions
               </h2>
               <div className="grid grid-cols-1">
@@ -87,13 +87,20 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   // );
   // const recipeDetails = await res.json();
 
+  const instructions = recipeDetails.analyzedInstructions.map((i) => {
+    return i.steps.map((s) => s.step.replaceAll(/\.(?=[^ \n])/g, '. '));
+  })[0];
+
+  const ingredients = recipeDetails.extendedIngredients.map(
+    ({ name, amount, unit }) => `${name} – ${amount} ${unit}`
+  );
+
   return {
     props: {
       recipeDetails: {
         ...recipeDetails,
-        instructions: recipeDetails.analyzedInstructions.map((i) => {
-          return i.steps.map((s) => s.step.replaceAll(/\.(?=[^ \n])/g, '. '));
-        })[0],
+        instructions,
+        ingredients,
       },
     },
   };
