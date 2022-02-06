@@ -4,17 +4,6 @@ import { RiPlantFill } from 'react-icons/ri';
 import { GiFruitBowl } from 'react-icons/gi';
 import { BsFillCloudHailFill } from 'react-icons/bs';
 
-const RecommendedForYou = () => {
-  return (
-    <div className="grid-cols-1">
-      <RecommendedRecipe
-        title="Green Bean-and-Tomato Salad with Tarragon Dressing"
-        ImgLink="https://images.unsplash.com/photo-1497493292307-31c376b6e479?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80"
-      />
-    </div>
-  );
-};
-
 const RecommendedRecipe = ({ ImgLink, title }) => {
   return (
     <div>
@@ -59,4 +48,4 @@ export const Tag = () => {
   );
 };
 
-export default RecommendedForYou;
+export default RecommendedRecipe;

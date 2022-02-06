@@ -6,7 +6,7 @@ const RecipeCard = ({ id, title, image }: RecipeProps) => {
     <Link href={`/recipes/${id}`}>
       <div>
         <img src={image} />
-        {title}
+        <p className="text-font-color">{title}</p>
       </div>
     </Link>
   );

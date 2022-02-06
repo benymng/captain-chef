@@ -5,7 +5,7 @@ const SearchBar = ({ value, setValue, search }) => {
   return (
     <div class="pb-8 pt-2 relative mx-auto text-gray-600">
       <input
-        class="border-2 border-font-color bg-font-color h-10 w-full px-5 pr-16 rounded-lg text-sm focus:outline-none"
+        className="border-2 border-font-color bg-font-color h-10 w-full px-5 pr-16 rounded-lg text-sm focus:outline-none"
         type="search"
         name="search"
         placeholder="Search"
@@ -14,7 +14,7 @@ const SearchBar = ({ value, setValue, search }) => {
       />
       <button
         type="submit"
-        class="absolute right-0 top-0 mt-5 mr-4"
+        className="absolute right-0 top-0 mt-5 mr-4"
         onClick={search}
       >
         <AiOutlineSearch />

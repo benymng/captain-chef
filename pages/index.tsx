@@ -7,7 +7,7 @@ import RecipeCard from '../components/RecipeCard';
 import styles from '../styles/Home.module.css';
 import SearchBar from '../components/SearchBar';
 import CategoryBoxes from '../components/CategoryBoxes';
-import RecommendedForYou from '../components/RecommendedForYou';
+import RecommendedRecipe from '../components/RecommendedRecipe';
 import Logo from '../public/Logo.svg';
 import Image from 'next/image';
 import { SearchResults } from '../types';
@@ -49,7 +49,12 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
       <p className="pb-3 font-sans font-bold text-font-color text-3xl">
         Recommended for you:
       </p>
-      <RecommendedForYou />
+      <div className="grid-cols-1">
+        <RecommendedRecipe
+          title="Green Bean-and-Tomato Salad with Tarragon Dressing"
+          ImgLink="https://images.unsplash.com/photo-1497493292307-31c376b6e479?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80"
+        />
+      </div>
       <br></br>
       <Head>
         <title>Captain Chef</title>
