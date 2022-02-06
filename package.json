@@ -8,10 +8,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@mui/icons-material": "^5.3.1",
-    "@mui/material": "^5.4.0",
     "@svgr/webpack": "^6.2.1",
     "@tensorflow-models/handpose": "^0.0.7",
     "@tensorflow/tfjs-backend-webgl": "^3.13.0",

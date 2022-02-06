@@ -1,13 +1,11 @@
 import { useRef, useEffect, useState } from 'react';
 
-import { Avatar, Grid, IconButton, Slider, Typography } from '@mui/material';
 import {
-  ArrowBackIosRounded,
-  ArrowForwardIosRounded,
-  ClearRounded,
-  CheckRounded,
-} from '@mui/icons-material';
-import { cyan, green, orange, red } from '@mui/material/colors';
+  MdCheck,
+  MdChevronLeft,
+  MdChevronRight,
+  MdOutlineCancel,
+} from 'react-icons/md';
 
 import Webcam from 'react-webcam';
 import fp from 'fingerpose';
@@ -48,24 +46,25 @@ const CookPage: NextPage<Props> = ({ recipeDetails }: Props) => {
   const sections = [
     {
       name: 'Ingredients',
-      color: orange[500],
+      bgColor: 'bg-orange-400',
+      color: 'bg-orange-500',
       sliderColor: 'secondary',
       array: recipe.ingredients,
       icon: 'number',
     },
     {
       name: 'Steps',
-      color: cyan[500],
+      bgColor: 'bg-cyan-500',
       sliderColor: 'primary',
       array: recipe.instructions,
       icon: 'number',
     },
     {
       name: 'Complete',
-      color: green.A400,
+      bgColor: 'bg-green-500',
       sliderColor: 'success',
       array: [],
-      icon: <CheckRounded fontSize="large" />,
+      icon: <MdCheck className="text-4xl" />,
     },
   ];
 
@@ -172,15 +171,7 @@ const CookPage: NextPage<Props> = ({ recipeDetails }: Props) => {
         <script src="https://unpkg.com/@tensorflow/tfjs-backend-webgl@3.7.0/dist/tf-backend-webgl.js"></script>
         {/* <script src="https://unpkg.com/@tensorflow-models/handpose@0.0.7/dist/handpose.js"></script> */}
       </Head>
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        height="100%"
-        columns={{ xs: 16 }}
-        paddingY={1}
-        paddingX={3}
-      >
+      <div className="w-full lg:w-1/2 mx-auto">
         <Webcam
           ref={webcamRef}
           onLoadedData={() => {
@@ -189,99 +180,64 @@ const CookPage: NextPage<Props> = ({ recipeDetails }: Props) => {
           }}
           style={{ width: 0, height: 0 }}
         />
-        <Grid item width="100%" container alignItems="center" xs={2}>
-          <Grid item>
-            <Avatar
-              style={{
-                backgroundColor: currentSection.color,
-                width: '2em',
-                height: '2em',
-                fontSize: '2em',
-              }}
-              alt={`${currentSection.name} ${
-                currentSection.icon === 'number' ? step : ''
-              }`}
+        <div className="p-5 md:p-10 h-screen flex flex-col">
+          <div className="flex flex-row h-1/12">
+            <div
+              className={`font-bold text-white rounded-full ${currentSection.bgColor} flex items-center justify-center font-mono h-16 w-16 `}
+              // style="height: 500px; width: 500px; font-size: 170px;"
             >
               {currentSection.icon === 'number' ? (
-                <Typography fontWeight="fontWeightBold" variant="h4">
-                  {step + 1}
-                </Typography>
+                <p className="font-bold text-2xl">{step + 1}</p>
               ) : (
                 currentSection.icon
               )}
-            </Avatar>
-          </Grid>
+            </div>
+            <div className="w-10/12 my-auto pl-6">
+              <div className="bg-gray-100 h-5 rounded-xl">
+                <div
+                  className={`${
+                    currentSection.bgColor
+                  } h-5 rounded-l-xl transition-all duration-75 ease-linear ${
+                    step === currentSection.array.length - 1 ||
+                    !moreSectionsForward()
+                      ? 'rounded-r-xl'
+                      : ''
+                  }`}
+                  style={{
+                    width: `${
+                      !moreSectionsForward()
+                        ? '100%'
+                        : (step / (currentSection.array.length - 1)) * 100
+                    }%`,
+                  }}
+                ></div>
+              </div>
+            </div>
+          </div>
 
-          <Grid
-            item
-            flexGrow={1}
-            style={{ paddingLeft: '2em', paddingRight: '1em' }}
-          >
-            {
-              <Slider
-                value={step}
-                max={currentSection.array.length - 1}
-                step={1}
-                marks
-                color={currentSection.sliderColor}
-              />
-            }
-          </Grid>
-        </Grid>
+          <div className="w-full flex-1 flex">
+            <div className="my-auto">
+              <p className="text-font-color align-middle text-3xl">
+                {!moreSectionsForward()
+                  ? 'Complete!'
+                  : currentSection.array[step]}
+              </p>
+            </div>
+          </div>
 
-        <Grid item width="100%" xs={12} container overflow="scroll">
-          <Grid item marginTop="auto" marginBottom="auto">
-            <Typography
-              variant="h4"
-              textAlign={!moreSectionsForward() ? 'center' : 'left'}
-              sx={{ userSelect: 'none' }}
-            >
-              {!moreSectionsForward()
-                ? 'Complete!'
-                : currentSection.array[step]}
-            </Typography>
-          </Grid>
-        </Grid>
-
-        <Grid
-          item
-          width="100%"
-          container
-          alignItems="center"
-          justifyContent="space-between"
-          xs={2}
-        >
-          <Grid item>
-            <IconButton onClick={back} disabled={isBackDisabled}>
-              <ArrowBackIosRounded
-                fontSize="large"
-                style={{ color: isBackDisabled ? cyan[100] : cyan[500] }}
-              />
-            </IconButton>
-          </Grid>
-
-          <Grid item>
-            <IconButton onClick={cancel}>
-              <ClearRounded fontSize="large" style={{ color: red[500] }} />
-            </IconButton>
-          </Grid>
-
-          {/* <Grid item>
-          <IconButton>
-            <ReplayRounded fontSize="large" style={{ color: blueGrey[500] }} />
-          </IconButton>
-        </Grid> */}
-
-          <Grid item>
-            <IconButton onClick={forward} disabled={isForwardDisabled}>
-              <ArrowForwardIosRounded
-                fontSize="large"
-                style={{ color: isForwardDisabled ? cyan[100] : cyan[500] }}
-              />
-            </IconButton>
-          </Grid>
-        </Grid>
-      </Grid>
+          <div className="grid grid-rows-none grid-cols-3 text-center align-bottom">
+            <div onClick={back}>
+              <MdChevronLeft className="text-accent-color text-4xl mx-auto" />
+            </div>
+            <div onClick={cancel}>
+              <MdOutlineCancel className="text-red-500 text-4xl mx-auto" />
+            </div>
+            <div onClick={forward}>
+              <MdChevronRight className="text-accent-color text-4xl mx-auto" />
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
