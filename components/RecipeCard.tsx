@@ -12,11 +12,13 @@ const RecipeCard = ({ id, title, image }: RecipeProps) => {
   // );
   return (
     <div>
-      <div className="py-3 lg:py-4 lg:flex lg:justify-center">
+      <div className="py-3 lg:py-4 lg:flex lg:justify-center h-full">
         <div className="bg-black rounded-xl lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-xl">
           <div className="lg:w-1/2">
-            <div>
-              <img className="rounded-xl w-max" src={image} />
+            <div className="flex h-full">
+              <div className="m-auto">
+                <img className="rounded-xl w-max" src={image} />
+              </div>
             </div>
           </div>
           <div className="py-12 px-6 max-w-xl lg:max-w-5xl lg:w-1/2">

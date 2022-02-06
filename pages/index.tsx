@@ -16,7 +16,7 @@ import { RiPlantFill } from 'react-icons/ri';
 import { GiFruitBowl } from 'react-icons/gi';
 import { BsFillCloudHailFill } from 'react-icons/bs';
 
-import { sampleSearchResults } from '../sample/searchResults';
+import { sampleSearchResults } from '../sample/searchResults2';
 
 interface Props {
   searchResults: SearchResults;
@@ -38,6 +38,7 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
     vegetarian: false,
     dairyFree: false,
   });
+  console.log(searchResults);
 
   const search = () => {
     const trueCategories = Object.keys(categories).filter(
@@ -69,7 +70,7 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="p-5">
+      <main className="py-5 lg:px-24 px-8">
         <div className="w-full py-5">
           <h1 className="text-center text-4xl text-font-color font-sans font-bold">
             Captain Chef
@@ -98,7 +99,7 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
             <GiFruitBowl />
           </CategoryBox>
           <CategoryBox
-            text="Dairy Free"
+            text="Carbon Neutral"
             update={() => toggleCategory('dairyFree')}
             active={categories.dairyFree}
           >
@@ -126,14 +127,12 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   // // Search for recipes
   // const searchQuery = query.q;
   // const diet = query.diet;
-  // const number = 1;
+  // const number = 6;
 
   // const res = await fetch(
-  // `https://api.spoonacular.com/recipes/complexSearch?apiKey=${spoonacular.apiKey}&query=${searchQuery}&addRecipeInformation=true&number=${number}&diet=${diet}`
+  //   `https://api.spoonacular.com/recipes/complexSearch?apiKey=${spoonacular.apiKey}&query=${searchQuery}&addRecipeInformation=true&number=${number}&diet=${diet}`
   // );
   // const searchResults = await res.json();
-
-  console.log(query);
 
   const searchResults = sampleSearchResults;
 
