@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import RecipeCard from '../components/RecipeCard';
 import styles from '../styles/Home.module.css';
 import SearchBar from '../components/SearchBar';
@@ -57,8 +57,9 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
     newCategories[c] = !categories[c];
 
     setCategories(newCategories);
-    search();
   };
+
+  useEffect(search, [categories]);
 
   return (
     <div>
