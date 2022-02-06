@@ -42,7 +42,7 @@ const Scan: NextPage = () => {
     const x = await res.json();
 
     if (x.ingredients && x.ingredients.length > 0) {
-      const ingredientsString = x.ingredients.join('+');
+      const ingredientsString = x.ingredients.slice(0, 2).join('+');
       router.push('/?i=' + ingredientsString);
     }
   };

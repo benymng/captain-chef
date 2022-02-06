@@ -136,21 +136,23 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const diet = query.diet;
   const ingredients = query.i;
 
+  if (!searchQuery && !diet && !ingredients) {
+    return { props: { sampleSearchResults } };
+  }
+
   let searchResults;
 
   if (ingredients) {
     const res = await fetch(
       `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${spoonacular.apiKey}&ingredients=${ingredients}&addRecipeInformation=true&number=${number}&diet=${diet}`
     );
-    searchResults = await res.json();
+    searchResults = { results: await res.json() };
   } else {
     const res = await fetch(
       `https://api.spoonacular.com/recipes/complexSearch?apiKey=${spoonacular.apiKey}&query=${searchQuery}&addRecipeInformation=true&number=${number}&diet=${diet}`
     );
     searchResults = await res.json();
   }
-
-  // searchResults = sampleSearchResults;
 
   return { props: { searchResults } };
 };
