@@ -18,6 +18,7 @@ interface Props {
 
 const RecipePage: NextPage<Props> = ({ recipeDetails }: Props) => {
   const { title, image, instructions } = recipeDetails;
+
   const router = useRouter();
   const id = router.query.id;
   const query = (router.query.q as string) || '';
@@ -40,7 +41,7 @@ const RecipePage: NextPage<Props> = ({ recipeDetails }: Props) => {
         <div className="m-auto">
           <img src="https://spoonacular.com/recipeImages/659015-636x393.jpg" />
           <h1 className="flex justify-center text-2xl text-font-color pb-4 pt-4 font-extrabold">
-            {recipeDetails}
+            {/* {recipeDetails} */}
           </h1>
           {/* <CookingInfo servings={servings} readyInMinutes={readyInMinutes} /> */}
           <h2 className="flex justify-center text-xl text-font-color pb-5 font-bold">
@@ -55,8 +56,8 @@ const RecipePage: NextPage<Props> = ({ recipeDetails }: Props) => {
             Directions
           </h2>
           <div className="justify-center grid grid-cols-1">
-            {/* {instructions.map((r) => (
-              <CookingInfo
+            {/* {instructions.map((instruction) => (
+              <CookingInfo instruction={instruction} />
             ))} */}
           </div>
         </div>
@@ -75,7 +76,16 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   // );
   // const recipeDetails = await res.json();
 
-  return { props: { recipeDetails } };
+  return {
+    props: {
+      recipeDetails: {
+        ...recipeDetails,
+        instructions: recipeDetails.analyzedInstructions.map((i) => {
+          return i.steps.map((s) => s.step.replaceAll(/\.(?=[^ \n])/g, '. '));
+        }),
+      },
+    },
+  };
 };
 
 export default RecipePage;
