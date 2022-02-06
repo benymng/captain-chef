@@ -1,4 +1,4 @@
-export declare type Tag = 'vegan' | 'vegetarian';
+export declare type Tag = 'vegan' | 'vegetarian' | 'dairyFree';
 
 export declare type RecipeProps = {
   id: string;
@@ -10,7 +10,6 @@ export declare type RecipeProps = {
 
   vegetarian: boolean;
   vegan: boolean;
-  glutenFree: boolean;
   dairyFree: boolean;
 
   instructions: string[];
