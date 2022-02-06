@@ -40,7 +40,12 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
   });
 
   const search = () => {
-    router.push(`/?q=${searchQuery}`);
+    const trueCategories = Object.keys(categories).filter(
+      (key) => categories[key as Tag]
+    );
+    const category = trueCategories.length > 0 ? trueCategories[0] : '';
+
+    router.push(`/?q=${searchQuery}&diet=${category}`);
   };
 
   const toggleCategory = (c: Tag) => {
@@ -119,12 +124,15 @@ const Home: NextPage<Props> = ({ searchResults }: Props) => {
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   // // Search for recipes
   // const searchQuery = query.q;
+  // const diet = query.diet;
   // const number = 1;
 
   // const res = await fetch(
-  // `https://api.spoonacular.com/recipes/complexSearch?apiKey=${spoonacular.apiKey}&query=${searchQuery}&addRecipeInformation=true&number=${number}`
+  // `https://api.spoonacular.com/recipes/complexSearch?apiKey=${spoonacular.apiKey}&query=${searchQuery}&addRecipeInformation=true&number=${number}&diet=${diet}`
   // );
   // const searchResults = await res.json();
+
+  console.log(query);
 
   const searchResults = sampleSearchResults;
 
