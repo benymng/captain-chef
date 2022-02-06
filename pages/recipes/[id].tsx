@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import BackButton from '../../components/BackButton';
 import HomeButton from '../../components/HomeButton';
@@ -7,8 +7,10 @@ import { useState } from 'react';
 import SearchBar from '../../components/SearchBar';
 import styles from '../../styles/Home.module.css';
 import Image from 'next/image';
+import { RecipeProps } from '../../types';
+import { spoonacular } from '../../config';
 
-const RecipePage: NextPage = () => {
+const RecipePage: NextPage<RecipeProps> = ({ title }: RecipeProps) => {
   const router = useRouter();
   const id = router.query.id;
   const query = (router.query.q as string) || '';
@@ -53,6 +55,18 @@ const RecipePage: NextPage = () => {
       </div>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  // Search for recipes
+  const id = query.id;
+
+  const res = await fetch(
+    `https://api.spoonacular.com/recipes/${id}/information?apiKey=${spoonacular.apiKey}`
+  );
+  const recipeDetails = await res.json();
+
+  return { props: { recipeDetails } };
 };
 
 export default RecipePage;
